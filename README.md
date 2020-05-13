@@ -6,7 +6,7 @@ This project collects data from sensors attached to a Raspberry PI and sends to 
 
 This assumes assumes that there is a PI with sensor(s) attached on the local network.
 
-The file cabin-temp.py is a Python script which runs on the PI and reads 2 values (temperature and humidity) from pin 4 every few seconds. These values are automatically provided by the sensor used in this case.
+The file `cabin-temp.py` is a Python script which runs on the PI and reads 2 values (temperature and humidity) from pin 4 every few seconds. These values are automatically provided by the sensor used in this case.
 
 The script then connects to the MQTT broker on the server and sends the temperature and humidity values to 2 topics.
 
