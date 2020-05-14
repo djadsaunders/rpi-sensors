@@ -12,6 +12,7 @@ var mqttclient = mqtt.connect('mqtt://localhost');
 
 // Local value of temperature
 var tempValue = 0;
+var humidityValue = 0;
 
 // Start server
 var server = app.listen(9080, function () {
@@ -23,15 +24,20 @@ var server = app.listen(9080, function () {
 // On connect to MQTT broker
 mqttclient.on('connect', function() {
     console.log('Connected to MQTT Broker');
-    mqttclient.subscribe('djad.temp', function(err) {
+    mqttclient.subscribe(['cabin/temp','cabin/humidity'], function(err) {
     });
 });
 
 mqttclient.on('message', function(topic, message) {
-    tempValue = message;
+    if (topic == 'cabin/temp') tempValue = message;
+    if (topic == 'cabin/humidity') humidityValue = message;
 });
 
 app.get('/temp', function(req, res) {
     res.json("{temp:" + tempValue + "}");
+});
+
+app.get('/humidity', function(req, res) {
+    res.json("{humidity:" + humidityValue + "}");
 });
 
